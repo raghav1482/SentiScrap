@@ -1,0 +1,328 @@
+.m-container {
+    width: 90%;
+    height: 93vh;
+    margin: 3vh auto;
+    background-color: rgb(230, 230, 230);
+    border-radius: 30px;
+    border: 10px solid white;
+    padding: 20px;
+    overflow: hidden;
+    /* position:relative; */
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-circle {
+    background-color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin: 10px;
+}
+
+.btn-black, .btn-white {
+    border-radius: 30px;
+    padding:10px 15px;
+    border: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin: 10px;
+}
+
+.btn-black {
+    background-color: black !important;
+    color: white !important;
+}
+
+
+.search-input {
+    padding: 8px;
+    margin-left: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+
+.btn-white {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+.search-input{
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.profile {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.main-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 88%;
+    overflow-y: scroll;
+    
+}
+
+.box-con {
+    flex: 1 1 auto;
+    /* display:grid;
+    place-items: center; */
+   
+    min-width: 350px;/* Reduced the min-width for better flexibility */
+    max-width: 70%;
+    min-height: 250px; /* Reduced the min-height for better flexibility */
+    max-height: 270px;
+    background-color: white;
+    border-radius: 20px;
+    margin: 10px;/* Added margin for spacing between boxes */
+    padding: 10px; /* Added padding for content spacing inside the box */
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+.us{
+max-width: 30% !important;
+background-image: url("../images/emo.jpeg");
+background-size:cover;
+position: relative;
+ overflow: hidden; 
+}
+.us h3{
+    top:30px;
+    font-weight: 700;
+}
+.us .box-head{
+    width: 90%;
+    top: 10px;
+}
+.box-con h4{
+    font-size: 17px;
+}
+.box-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: max-content;
+    margin: 0;
+    padding: 4px;
+    width:100%;
+  
+}
+
+.left-gradient{
+    width: 100%;
+    height: 100%;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 5%, rgba(248,254,255,0.8660714285714286) 37%, rgba(0,212,255,0) 100%);  
+    position: absolute;   
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.chart-container {
+    width: 300px; /* Adjust width as needed */
+    height: 200px; /* Adjust height as needed */
+}
+
+.chart-container .chartjs-render-monitor {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(40, 255, 119); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(40, 255, 119); 
+  }
+
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+    border: 4px solid #0000;
+    border-radius: 50%;
+    border-right-color: #25b09b;
+    animation: l15 1s infinite linear;margin: 40px auto;
+  }
+  .loader::before,
+  .loader::after {    
+    content: "";
+    grid-area: 1/1;
+    margin: 2px;
+    border: inherit;
+    border-radius: 50%;
+    animation: l15 2s infinite;
+  }
+  .loader::after {
+    margin: 8px;
+    animation-duration: 3s;
+  }
+  @keyframes l15{ 
+    100%{transform: rotate(1turn)}
+  }
+
+
+  .toggle-button {
+    display: none;
+    background-color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    /* margin-left: auto; */
+    z-index: 10000;
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+    position:absolute;
+    z-index: 9999;
+    right: 20px;
+    top: 40px;
+}
+
+.nav-item {
+    background-color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    border-radius: 5px;
+
+}
+
+.nav-item:hover {
+    background-color: #e4e4e4;
+}
+.Navbar-mob{
+    width: 100%;
+    display: none;
+    margin-left: auto;
+    background-color: transparent;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .Navbar {
+        display: none;
+    }
+
+    .Navbar-mob {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px;
+        color: rgb(0, 0, 0);
+        justify-content: space-between;
+    }
+    .toggle-button {
+        display: inline-block;
+    }
+
+    .nav-items {
+        display: none;
+        flex-direction: column;
+        width: 150px;
+    }
+
+    .nav-items.visible {
+        display: flex;
+    }
+
+    .nav-item {
+        width: 100%;
+        text-align: left;
+        padding: 10px 0;
+        border-bottom: 1px solid #ffffff;
+    }
+    .nav-item img{
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-width:480px) {
+    .search-input{
+        word-wrap: break-word;
+        width: 100px;
+        margin: 0;
+        padding-left: 0;
+        text-wrap: wrap;
+        
+    }
+    .box-con{
+       
+    
+         min-width: fit-content;
+    }
+    .us h3{
+    top:20px;
+}
+.chart-container {
+    overflow-x: hidden;
+  width:250px;
+}
+.m-container{
+    width: 100%;
+    height: 100vh;
+  padding-bottom: 60px;
+  margin: 0 !important;
+  border: none;
+  border-radius: 0;
+}
+.main-box{
+    overflow-x: hidden;
+}
+body{
+    margin: 0 !important; 
+}
+
+}
+
+@media (max-width:390px){
+.chart-container {
+         
+        width: 220px;
+    }
+}

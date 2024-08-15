@@ -1,0 +1,79 @@
+/* SignIn.css */
+.modal.show{
+    /* background-color: #357ae8; */
+    backdrop-filter: blur(3px);
+}
+
+.modal-header{
+    border-bottom: none !important;
+}
+
+.modal-content{
+    background-color: white !important;
+    border: none !important;
+}
+.signin-modal {
+    max-width: 300px !important;
+    height: 500px !important;
+    margin: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+.signin-modal-header {
+    border-bottom: none;
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(10px);
+}
+
+.signin-modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+}
+
+.signin-content {
+    text-align: center;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.mock-profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signin-title {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.signin-button {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #ffffff !important; /* Google blue */
+    color: rgb(0, 0, 0) !important;
+    border: none;
+    transition: background-color 0.3s ease;
+    max-width: max-content !important;
+    margin: auto;
+}
+
+.signin-button:hover {
+    background-color: #357ae8; /* Darker Google blue */
+}
