@@ -8,6 +8,11 @@ import axios from "axios";
 import Graph from './Graph';
 import { auth } from '../firebase'; // Import the auth instance from firebase.js
 import { onAuthStateChanged } from 'firebase/auth';
+import * as pdfjsLib from "pdfjs-dist";
+import pdfWorker from "pdfjs-dist/build/pdf.worker.entry";
+
+// Configure pdfjsLib worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 function Home({ server_url }) {
     const [searchUrl, setSearchUrl] = useState("");
@@ -16,6 +21,7 @@ function Home({ server_url }) {
     const [sentimentProb, setSentimentProb] = useState(0);
     const [history, setHistory] = useState([]);
     const [user, setUser] = useState(null);
+    const [pdfText, setPdfText] = useState("");
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -31,18 +37,15 @@ function Home({ server_url }) {
         return () => unsubscribe();
     }, []);
 
-    const sendRequest = async (res,query) => {
+    const sendRequest = async (data, query) => {
         try {
-            const response = await axios.post(`https://senti-svm.onrender.com/predict`, { sentences: res.data });
+            const response = await axios.post(`https://senti-svm.onrender.com/predict`, { sentences: data });
 
             const sentiments = response?.data?.sentiments;
 
             if (sentiments) {
-                const ratingStr = res?.data[res?.data?.length - 1];
-                const rating = parseFloat(ratingStr);
-
                 let pos = 0, neg = 0;
-                sentiments.slice(0, -1).forEach(element => {
+                sentiments.forEach(element => {
                     if (element === "Positive") {
                         pos++;
                     } else {
@@ -51,13 +54,11 @@ function Home({ server_url }) {
                 });
 
                 const avgSentiment = pos / (pos + neg);
-                const avgRatingProbability = rating / 5;
 
-                const combinedProbability = (0.4 * avgRatingProbability) + (0.6 * avgSentiment);
-                setSentimentProb(combinedProbability);
+                setSentimentProb(avgSentiment);
+
                 if (user) {
-                    const probability = combinedProbability;
-                    const searchItem = { url: query, probability }; // Save only the final sentiment probability
+                    const searchItem = { url: query, probability: avgSentiment };
                     const updatedHistory = [...history, searchItem];
                     setHistory(updatedHistory);
                     localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
@@ -69,6 +70,7 @@ function Home({ server_url }) {
             }
         } catch (error) {
             console.error("Error in sending request:", error);
+            setLoader(false);
         }
     };
 
@@ -80,22 +82,47 @@ function Home({ server_url }) {
             if (parsedUrl.hostname.includes('amazon.')) {
                 try {
                     const response = await axios.get(`${server_url}/scrape-reviews?url=${query}`);
-                    console.log(response);
                     setResult(response.data);
-
-                    await sendRequest(response,query);
-
+                    await sendRequest(response.data, query);
                 } catch (e) {
                     setLoader(false);
                     console.log(e);
                 }
             } else {
                 setLoader(false);
-                alert("Enter a valid AMAZON URL🫥");
+                alert("Enter a valid AMAZON URL 🫥");
             }
         } else {
             setLoader(false);
-            alert("Enter a valid AMAZON URL🫥");
+            alert("Enter a valid AMAZON URL 🫥");
+        }
+    };
+
+    const handlePdfUpload = async (event) => {
+        setLoader(true);
+        const file = event.target.files[0];
+        if (file) {
+            const fileReader = new FileReader();
+            fileReader.onload = async (e) => {
+                try {
+                    const arrayBuffer = e.target.result;
+                    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                    let text = "";
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const content = await page.getTextContent();
+                        text += content.items.map((item) => item.str).join(" ");
+                    }
+                    setPdfText(text);
+                    const sentences = text.split(".").filter((sentence) => sentence.trim() !== "");
+                    await sendRequest(sentences, "Uploaded PDF");
+                    setLoader(false);
+                } catch (err) {
+                    console.error("Error reading PDF:", err);
+                    setLoader(false);
+                }
+            };
+            fileReader.readAsArrayBuffer(file);
         }
     };
 
@@ -104,8 +131,10 @@ function Home({ server_url }) {
             <Navbar onSearch={handleSearch} />
             <div className="main-box">
                 <Us />
+
+                
                 <HistoryCon user={user} history={history} />
-                <Mainsite />
+                <Mainsite handlePdfUpload={handlePdfUpload}/>
                 <Graph sentimentProb={sentimentProb} loader={loader} setLoader={setLoader} />
             </div>
         </div>

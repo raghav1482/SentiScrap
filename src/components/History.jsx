@@ -17,7 +17,7 @@ export default function HistoryCon({ user, history }) {
                                 <a href={item.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "grey" }}>
                                     {item.url}
                                 </a>
-                                <span style={{ marginLeft: "10px" }}>{item.probability.toFixed(2)}</span>
+                                <span style={{ marginLeft: "10px" }}>{item.probability}</span>
                             </li>
                         ))}
                     </ul>

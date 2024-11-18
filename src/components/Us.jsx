@@ -12,7 +12,7 @@ export default function Us(){
                 <button className="btn-white" style={{fontSize:"20px",paddingBlock:"5px",boxShadow:"none"}}><i className="fa fa-angle-right"></i></button>
             </div>
             <h3 style={{maxWidth:"90%",zIndex:"999",position:"relative"}}>
-            Instant Insights from Product Reviews
+            Instant Insights from Content
             </h3>
         </div>
         </>)

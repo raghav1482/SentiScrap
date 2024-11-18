@@ -9,6 +9,37 @@
     overflow: hidden;
     /* position:relative; */
 }
+#input-pdf{
+    display: none;
+}
+
+.pdf-btn{
+        width: 75px;
+        height: 75px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 30px;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        color: #ffffff;
+        background-color: #2EE59D;
+        border: none;
+        border-radius: 45px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+    }
+      
+      .pdf-btn:hover {
+        background-color: #2EE59D;
+        box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+        color: #fff;
+        transform: translateY(-7px);
+      }
 
 button:hover {
     cursor: pointer;
