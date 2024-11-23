@@ -39,7 +39,7 @@ function Home({ server_url }) {
 
     const sendRequest = async (data, query) => {
         try {
-            const response = await axios.post(`https://senti-svm.onrender.com/predict`, { sentences: data });
+            const response = await axios.post(`https://newsvm.onrender.com/predict`, { sentences: data });
 
             const sentiments = response?.data?.sentiments;
 
