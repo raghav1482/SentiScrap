@@ -8,6 +8,7 @@
     padding: 20px;
     overflow: hidden;
     /* position:relative; */
+    position: relative;
 }
 #input-pdf{
     display: none;
@@ -272,6 +273,28 @@ position: relative;
     margin-left: auto;
     background-color: transparent;
     position: relative;
+}
+
+.large-input-container{
+    left:0%;
+    top:0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+}
+.large-input-container div{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    height: max-content;
+    background-color: white;
+    margin: 10% auto;
+}
+.large-input-container .seach-btn{
+    border-radius: 20px;
+    
 }
 
 @media (max-width: 768px) {

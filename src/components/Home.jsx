@@ -143,7 +143,10 @@ function Home({ server_url }) {
             fileReader.readAsArrayBuffer(file);
         }
     };
-
+    const analyzeText = async(sentences) => {
+        console.log("Sentences to analyze:", sentences);
+        await sendRequest(sentences,"text pararaph")
+    };
     return (
         <div className="m-container">
             <Navbar onSearch={handleSearch} />
@@ -152,7 +155,7 @@ function Home({ server_url }) {
 
                 
                 <HistoryCon user={user} history={history} />
-                <Mainsite handlePdfUpload={handlePdfUpload}/>
+                <Mainsite handlePdfUpload={handlePdfUpload} analyzeText={analyzeText}/>
                 <Graph sentimentProb={sentimentProb} emotions={emotions}  loader={loader} setLoader={setLoader} />
             </div>
         </div>
