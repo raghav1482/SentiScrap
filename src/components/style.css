@@ -123,7 +123,7 @@ button:hover {
     min-width: 350px;/* Reduced the min-width for better flexibility */
     max-width: 70%;
     min-height: 250px; /* Reduced the min-height for better flexibility */
-    max-height: 270px;
+    /* max-height: 270px; */
     background-color: white;
     border-radius: 20px;
     margin: 10px;/* Added margin for spacing between boxes */

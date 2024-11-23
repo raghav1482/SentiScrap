@@ -22,6 +22,7 @@ function Home({ server_url }) {
     const [history, setHistory] = useState([]);
     const [user, setUser] = useState(null);
     const [pdfText, setPdfText] = useState("");
+    const [emotions,setEmotions]=useState([]);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -40,9 +41,26 @@ function Home({ server_url }) {
     const sendRequest = async (data, query) => {
         try {
             const response = await axios.post(`https://newsvm.onrender.com/predict`, { sentences: data });
+            const response2 = await axios.post(`https://newsvm.onrender.com/predict_emotion`, { sentences: data });
 
             const sentiments = response?.data?.sentiments;
+            const emo = response2?.data?.predictions;
+            const emotionCounts = emo.reduce((acc, emotion) => {
+                acc[emotion] = (acc[emotion] || 0) + 1;
+                return acc;
+            }, {});
+        
+            // List of possible emotions
+            const emotionList = ["sadness", "anger", "surprise", "fear", "love", "joy"];
+        
+            // Create an array of normalized values for graphing
+            const totalEmotions = emo.length;
+            const emos = emotionList.map((emotion) => {
+                const count = emotionCounts[emotion] || 0;
+                return count; // Normalize to a percentage or proportion
+            });
 
+            setEmotions(emos);
             if (sentiments) {
                 let pos = 0, neg = 0;
                 sentiments.forEach(element => {
@@ -135,7 +153,7 @@ function Home({ server_url }) {
                 
                 <HistoryCon user={user} history={history} />
                 <Mainsite handlePdfUpload={handlePdfUpload}/>
-                <Graph sentimentProb={sentimentProb} loader={loader} setLoader={setLoader} />
+                <Graph sentimentProb={sentimentProb} emotions={emotions}  loader={loader} setLoader={setLoader} />
             </div>
         </div>
     );
