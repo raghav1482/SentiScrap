@@ -97,7 +97,7 @@ function Home({ server_url }) {
         setLoader(true);
         if (query.startsWith("http")) {
             const parsedUrl = new URL(query);
-            if (parsedUrl.hostname.includes('amazon.')) {
+            if (parsedUrl) {
                 try {
                     const response = await axios.get(`${server_url}/scrape-reviews?url=${query}`);
                     setResult(response.data);

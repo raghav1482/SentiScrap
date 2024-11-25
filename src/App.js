@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar'; // Import Navbar if you want it on all pages
 
 function App() {
-  const server_url = "https://scrapy-two.vercel.app";
+  const server_url = "https://scrapy-wtzr.onrender.com";
 
   return (
     <Router>
