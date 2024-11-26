@@ -133,11 +133,11 @@ function Home({ server_url }) {
                 }
             } else {
                 setLoader(false);
-                alert("Enter a valid AMAZON URL 🫥");
+                // alert("Enter a valid AMAZON URL 🫥");
             }
         } else {
             setLoader(false);
-            alert("Enter a valid AMAZON URL 🫥");
+            // alert("Enter a valid AMAZON URL 🫥");
         }
     };
 
