@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Profile from './Profile'; // Your Profile component
 import SignIn from './SignIn'; // Your SignIn component
 
-export default function Navbar({ onSearch, search_hide, setHistory }) {
+export default function Navbar({ onSearch, search_hide, setHistory,toggleTheme }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [isInputVisible, setInputVisible] = useState(false);
     const [isNavVisible, setNavVisible] = useState(false);
@@ -138,6 +138,7 @@ export default function Navbar({ onSearch, search_hide, setHistory }) {
                     <button
                         className="btn-white"
                         data-tooltip-id="tooltip-adjust"
+                        onClick={toggleTheme}
                     >
                         <i className="fa fa-adjust"></i>
                     </button>
@@ -151,13 +152,6 @@ export default function Navbar({ onSearch, search_hide, setHistory }) {
                         <i className="fa fa-user"></i>
                     </button>
 
-                    <Tooltip id="tooltip-send" content="Send" />
-                    <button
-                        className="btn-white"
-                        data-tooltip-id="tooltip-send"
-                    >
-                        <i className="fa fa-send"></i>
-                    </button>
 
                     {user && (
                         <>

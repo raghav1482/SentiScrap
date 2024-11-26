@@ -23,6 +23,31 @@ function Home({ server_url }) {
     const [user, setUser] = useState(null);
     const [pdfText, setPdfText] = useState("");
     const [emotions,setEmotions]=useState([]);
+    const [darkMode, setDarkMode] = useState(false);
+
+  // Load theme from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setDarkMode(savedTheme === 'dark');
+      document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+      const elements = document.getElementsByClassName("box-con");
+        Array.from(elements).forEach((element) => {
+        element.classList.toggle('dark-mode', savedTheme === 'dark');
+        });
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    setDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      const theme = newMode ? 'dark' : 'light';
+      localStorage.setItem('theme', theme);
+      document.body.classList.toggle('dark-mode', newMode);
+  
+      return newMode;
+    });
+  };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -149,7 +174,7 @@ function Home({ server_url }) {
     };
     return (
         <div className="m-container">
-            <Navbar onSearch={handleSearch} />
+            <Navbar onSearch={handleSearch} toggleTheme={toggleTheme} />
             <div className="main-box">
                 <Us />
 
