@@ -57,7 +57,7 @@ function Home({ server_url }) {
             const totalEmotions = emo.length;
             const emos = emotionList.map((emotion) => {
                 const count = emotionCounts[emotion] || 0;
-                return count; // Normalize to a percentage or proportion
+                return (count/totalEmotions)*100; // Normalize to a percentage or proportion
             });
 
             setEmotions(emos);
@@ -95,9 +95,9 @@ function Home({ server_url }) {
     const handleSearch = async (query) => {
         setSearchUrl(query);
         setLoader(true);
-        if (query.startsWith("http")) {
-            const parsedUrl = new URL(query);
-            if (parsedUrl) {
+        if (query) {
+            // const parsedUrl = new URL(query);
+            if (query) {
                 try {
                     const response = await axios.get(`${server_url}/scrape-reviews?url=${query}`);
                     setResult(response.data);
@@ -155,7 +155,7 @@ function Home({ server_url }) {
 
                 
                 <HistoryCon user={user} history={history} />
-                <Mainsite handlePdfUpload={handlePdfUpload} analyzeText={analyzeText}/>
+                <Mainsite handlePdfUpload={handlePdfUpload} analyzeText={analyzeText} carsearch={handleSearch}/>
                 <Graph sentimentProb={sentimentProb} emotions={emotions}  loader={loader} setLoader={setLoader} />
             </div>
         </div>

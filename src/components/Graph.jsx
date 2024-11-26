@@ -102,7 +102,12 @@ const Graph = ({ sentimentProb, emotions, loader }) => {
                             data={emotionData}
                             options={{
                                 scales: {
-                                    y: { beginAtZero: true }, // Dynamic y-axis for emotion intensities
+                                    y: {
+                                        beginAtZero: true, 
+                                        ticks: {
+                                            callback: (value) => `${value}%`, 
+                                        },
+                                    },
                                 },
                             }}
                         />

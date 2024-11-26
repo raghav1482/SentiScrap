@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-
-export default function Mainsite({ handlePdfUpload, analyzeText }) {
-    const [isTextInputVisible, setIsTextInputVisible] = useState(false); // State to toggle input visibility
+import cardekho from "../images/cardekho.png"
+export default function Mainsite({ handlePdfUpload, analyzeText,carsearch }) {
+    const [isTextInputVisible, setIsTextInputVisible] = useState(false);
     const [text, setText] = useState(''); // State to store the entered text
-
-    const handleTextInputToggle = () => {
+    const [placehol,setPlacehold]=useState("");
+    const handleTextInputToggle = (inputType) => {
+        (inputType=='car')?setPlacehold("Enter car review url (https://www.cardekho.com/company/car/user-reviews)"):setPlacehold('Enter text here...');
         setIsTextInputVisible(!isTextInputVisible); // Toggle input visibility
     };
 
     const handleSearchClick = () => {
+        handleTextInputToggle();
         let sentenceArray = [];
         if (Array.isArray(text)) {
             sentenceArray = text.map((sentence) => sentence.trim()); 
@@ -55,7 +57,7 @@ export default function Mainsite({ handlePdfUpload, analyzeText }) {
                                     onChange={(e) => setText(e.target.value)} // Update text state
                                     name="input-text"
                                     id="input-text"
-                                    placeholder="Enter text here..."
+                                    placeholder={placehol}
                                     rows="6"
                                     style={{ width: "100%" }}
                                 ></textarea>
@@ -70,7 +72,7 @@ export default function Mainsite({ handlePdfUpload, analyzeText }) {
                                 <button
                                     className="pdf-btn"
                                     onClick={()=>{setIsTextInputVisible(false)}} 
-                                    style={{width:"50px",height:"50px",fontSize:"17px"}}
+                                    style={{width:"50px",height:"50px",fontSize:"17px",backgroundColor:"red"}}
                                 >
                                     <i class="fa fa-close"></i>
                                 </button>
@@ -78,10 +80,47 @@ export default function Mainsite({ handlePdfUpload, analyzeText }) {
                                 </div>
                             </div>
                         )}
-                        <label htmlFor="input-text" className="pdf-btn" onClick={handleTextInputToggle}>
+                        <label htmlFor="input-text" className="pdf-btn blue" onClick={handleTextInputToggle} style={{backgroundColor:"#0290f5"}}>
                             T
                         </label>
                     </div>
+                    {/* Car dekho */}
+                    <div className="upload-container m-2">
+                        {isTextInputVisible && (
+                            <div className="large-input-container" style={{position:'absolute'}}>
+                                <div>
+                                <textarea
+                                    onChange={(e) => setText(e.target.value)} // Update text state
+                                    name="input-text"
+                                    id="input-text"
+                                    placeholder={placehol}
+                                    rows="6"
+                                    style={{ width: "100%" }}
+                                ></textarea>
+                                <p style={{display:"flex",width:"100%",justifyContent:"space-around"}}>
+                                <button
+                                    className="pdf-btn"
+                                    onClick={()=>carsearch(text)}
+                                    style={{width:"50px",height:"50px",fontSize:"17px"}}
+                                >
+                                    <i class="fa fa-search"></i>
+                                </button>
+                                <button
+                                    className="pdf-btn"
+                                    onClick={()=>{setIsTextInputVisible(false)}} 
+                                    style={{width:"50px",height:"50px",fontSize:"17px",backgroundColor:"red"}}
+                                >
+                                    <i class="fa fa-close"></i>
+                                </button>
+                                </p>
+                                </div>
+                            </div>
+                        )}
+                        <label htmlFor="input-text" className="pdf-btn orange" onClick={()=>handleTextInputToggle('car')}>
+                        <img src={cardekho}/>
+                        </label>
+                    </div>
+                    
                 </div>
             </div>
         </>

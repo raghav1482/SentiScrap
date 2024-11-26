@@ -33,6 +33,10 @@
         display: flex;
         justify-content: center;
         align-items: center;    
+        overflow: hidden;
+    }
+    .pdf-btn img{
+        width: 100%;
     }
       
       .pdf-btn:hover {
@@ -40,6 +44,14 @@
         box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
         color: #fff;
         transform: translateY(-7px);
+      }
+      .blue:hover {
+        background-color: #3ea1fe;
+        box-shadow: 0px 15px 20px rgba(16, 113, 248, 0.516);
+      }
+      .orange:hover {
+        background-color: #e5932e;
+        box-shadow: 0px 15px 20px rgba(229, 138, 46, 0.4);
       }
 
 button:hover {
