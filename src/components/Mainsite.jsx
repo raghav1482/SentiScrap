@@ -1,25 +1,34 @@
 import React, { useState } from "react";
-import cardekho from "../images/cardekho.png"
-export default function Mainsite({ handlePdfUpload, analyzeText,carsearch }) {
-    const [isTextInputVisible, setIsTextInputVisible] = useState(false);
+import cardekho from "../images/cardekho.png";
+
+export default function Mainsite({ handlePdfUpload, analyzeText, carsearch }) {
+    const [isTextInputVisible, setIsTextInputVisible] = useState(false); // For general text input
+    const [isCarInputVisible, setIsCarInputVisible] = useState(false);   // For CarDekho input
     const [text, setText] = useState(''); // State to store the entered text
-    const [placehol,setPlacehold]=useState("");
-    const handleTextInputToggle = (inputType) => {
-        (inputType=='car')?setPlacehold("Enter car review url (https://www.cardekho.com/company/car/user-reviews)"):setPlacehold('Enter text here...');
-        setIsTextInputVisible(!isTextInputVisible); // Toggle input visibility
+    const [placeholder, setPlaceholder] = useState("");
+
+    const handleTextInputToggle = () => {
+        setIsTextInputVisible(!isTextInputVisible);
+        setIsCarInputVisible(false); // Close CarDekho input if open
+        setPlaceholder('Enter text here...');
+    };
+
+    const handleCarInputToggle = () => {
+        setIsCarInputVisible(!isCarInputVisible);
+        setIsTextInputVisible(false); // Close text input if open
+        setPlaceholder("Enter car review URL (https://www.cardekho.com/company/car/user-reviews)");
     };
 
     const handleSearchClick = () => {
-        handleTextInputToggle();
+        console.log("Searching text...");
         let sentenceArray = [];
         if (Array.isArray(text)) {
-            sentenceArray = text.map((sentence) => sentence.trim()); 
+            sentenceArray = text.map((sentence) => sentence.trim());
         } else if (typeof text === 'string') {
-            sentenceArray = text.split(/[.!?]\s+/).map((sentence) => sentence.trim());
+            sentenceArray = text.split(/[.!?\n]\s+/).map((sentence) => sentence.trim());
         }
         analyzeText(sentenceArray);
     };
-    
 
     return (
         <>
@@ -51,76 +60,81 @@ export default function Mainsite({ handlePdfUpload, analyzeText,carsearch }) {
                     {/* Text input toggle */}
                     <div className="upload-container m-2">
                         {isTextInputVisible && (
-                            <div className="large-input-container" style={{position:'absolute'}}>
-                                <div>
+                            <div className="large-input-container" style={{ position: 'absolute' }}>
                                 <textarea
-                                    onChange={(e) => setText(e.target.value)} // Update text state
+                                    onChange={(e) => setText(e.target.value)}
                                     name="input-text"
                                     id="input-text"
-                                    placeholder={placehol}
+                                    placeholder={placeholder}
                                     rows="6"
                                     style={{ width: "100%" }}
                                 ></textarea>
-                                <p style={{display:"flex",width:"100%",justifyContent:"space-around"}}>
-                                <button
-                                    className="pdf-btn"
-                                    onClick={handleSearchClick}
-                                    style={{width:"50px",height:"50px",fontSize:"17px"}}
-                                >
-                                    <i class="fa fa-search"></i>
-                                </button>
-                                <button
-                                    className="pdf-btn"
-                                    onClick={()=>{setIsTextInputVisible(false)}} 
-                                    style={{width:"50px",height:"50px",fontSize:"17px",backgroundColor:"red"}}
-                                >
-                                    <i class="fa fa-close"></i>
-                                </button>
-                                </p>
+                                <div style={{ display: "flex", justifyContent: "space-around" }}>
+                                    <button
+                                        className="pdf-btn"
+                                        onClick={handleSearchClick}
+                                        style={{ width: "50px", height: "50px", fontSize: "17px" }}
+                                    >
+                                        <i className="fa fa-search"></i>
+                                    </button>
+                                    <button
+                                        className="pdf-btn"
+                                        onClick={() => setIsTextInputVisible(false)}
+                                        style={{ width: "50px", height: "50px", fontSize: "17px", backgroundColor: "red" }}
+                                    >
+                                        <i className="fa fa-close"></i>
+                                    </button>
                                 </div>
                             </div>
                         )}
-                        <label htmlFor="input-text" className="pdf-btn blue" onClick={handleTextInputToggle} style={{backgroundColor:"#0290f5"}}>
+                        <label
+                            htmlFor="input-text"
+                            className="pdf-btn blue"
+                            onClick={handleTextInputToggle}
+                            style={{ backgroundColor: "#0290f5" }}
+                        >
                             T
                         </label>
                     </div>
-                    {/* Car dekho */}
+
+                    {/* CarDekho input toggle */}
                     <div className="upload-container m-2">
-                        {isTextInputVisible && (
-                            <div className="large-input-container" style={{position:'absolute'}}>
-                                <div>
+                        {isCarInputVisible && (
+                            <div className="large-input-container" style={{ position: 'absolute' }}>
                                 <textarea
-                                    onChange={(e) => setText(e.target.value)} // Update text state
-                                    name="input-text"
-                                    id="input-text"
-                                    placeholder={placehol}
+                                    onChange={(e) => setText(e.target.value)}
+                                    name="car-input"
+                                    id="car-input"
+                                    placeholder={placeholder}
                                     rows="6"
                                     style={{ width: "100%" }}
                                 ></textarea>
-                                <p style={{display:"flex",width:"100%",justifyContent:"space-around"}}>
-                                <button
-                                    className="pdf-btn"
-                                    onClick={()=>carsearch(text)}
-                                    style={{width:"50px",height:"50px",fontSize:"17px"}}
-                                >
-                                    <i class="fa fa-search"></i>
-                                </button>
-                                <button
-                                    className="pdf-btn"
-                                    onClick={()=>{setIsTextInputVisible(false)}} 
-                                    style={{width:"50px",height:"50px",fontSize:"17px",backgroundColor:"red"}}
-                                >
-                                    <i class="fa fa-close"></i>
-                                </button>
-                                </p>
+                                <div style={{ display: "flex", justifyContent: "space-around" }}>
+                                    <button
+                                        className="pdf-btn"
+                                        onClick={() => carsearch(text)}
+                                        style={{ width: "50px", height: "50px", fontSize: "17px" }}
+                                    >
+                                        <i className="fa fa-search"></i>
+                                    </button>
+                                    <button
+                                        className="pdf-btn"
+                                        onClick={() => setIsCarInputVisible(false)}
+                                        style={{ width: "50px", height: "50px", fontSize: "17px", backgroundColor: "red" }}
+                                    >
+                                        <i className="fa fa-close"></i>
+                                    </button>
                                 </div>
                             </div>
                         )}
-                        <label htmlFor="input-text" className="pdf-btn orange" onClick={()=>handleTextInputToggle('car')}>
-                        <img src={cardekho}/>
+                        <label
+                            htmlFor="car-input"
+                            className="pdf-btn orange"
+                            onClick={handleCarInputToggle}
+                        >
+                            <img src={cardekho} alt="CarDekho" />
                         </label>
                     </div>
-                    
                 </div>
             </div>
         </>
